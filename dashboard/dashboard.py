@@ -10,7 +10,7 @@ sns.set(style='dark')
 # Nonexist 
 
 # Load cleaned data
-all_df = pd.read_csv("dashboard/day.csv")
+all_df = pd.read_csv("day.csv")
 
 datetime_columns = ["dteday"]
 all_df.sort_values(by="dteday", inplace=True)
