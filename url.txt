@@ -1,1 +1,1 @@
-https://share.streamlit.io/
+https://eda-bike-rent-dicoding-f8vxbeyzt5pxfo6sxyfnlt.streamlit.app/

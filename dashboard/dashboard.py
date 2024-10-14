@@ -3,6 +3,7 @@ import numpy as np
 import seaborn as sns
 import streamlit as st
 import plotly.express as px
+import datetime
 
 sns.set(style='dark')
 
@@ -10,7 +11,7 @@ sns.set(style='dark')
 # Nonexist 
 
 # Load cleaned data
-all_df = pd.read_csv("day.csv")
+all_df = pd.read_csv("dashboard/day.csv")
 
 datetime_columns = ["dteday"]
 all_df.sort_values(by="dteday", inplace=True)
@@ -22,8 +23,16 @@ for column in datetime_columns:
 # Membuat kategori 'Hari Kerja' dan 'Akhir Pekan' menggunakan np.where
 all_df['is_weekend'] = np.where(all_df['weekday'].isin([0, 6]), 'Weekend', 'Weekday')
 
-# # Menyiapkan berbagai dataframe
-# Nonexist
+# SIDEBAR
+date_range = st.sidebar.date_input("Date Range Filter",
+                              (all_df.dteday.min(),all_df.dteday.max()),
+                              min_value=all_df.dteday.min(),
+                              max_value=all_df.dteday.max(),
+                              format="YYYY-MM-DD")
+
+# filter data
+if len(date_range)==2:
+    all_df = all_df[(all_df['dteday']>=date_range[0].strftime("%Y-%m-%d"))&(all_df['dteday']<=date_range[1].strftime("%Y-%m-%d"))]
 
 # plot number of daily orders
 st.header('Bike Rental Dashboard :sparkles:')
@@ -74,4 +83,4 @@ fig.update_xaxes(tickvals=[1, 2, 3],
 st.plotly_chart(fig)
 
 
-st.caption('Copyright © Abraham Alexander Dared 2024')
+st.caption('Copyright Â© Abraham Alexander Dared 2024')
